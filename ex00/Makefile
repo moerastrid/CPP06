@@ -6,7 +6,7 @@
 #    By: ageels <ageels@student.codam.nl>             +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/05/15 14:13:01 by ageels        #+#    #+#                  #
-#    Updated: 2023/05/15 14:17:08 by ageels        ########   odam.nl          #
+#    Updated: 2023/05/22 18:13:00 by ageels        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,8 @@ FLAGS = -I. -Wall -Werror -Wextra -std=c++98
 
 HDR = 
 
-SRC = main.cpp
+SRC = main.cpp \
+	ScalarConverter.cpp\
 
 OBJ_DIR = obj
 
