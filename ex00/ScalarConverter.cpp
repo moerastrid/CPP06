@@ -6,7 +6,7 @@
 /*   By: ageels <ageels@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/22 14:23:30 by ageels        #+#    #+#                 */
-/*   Updated: 2023/05/25 14:39:53 by ageels        ########   odam.nl         */
+/*   Updated: 2023/05/25 14:42:17 by ageels        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ bool	pseudoLiterals(const std::string input) {
 			n = i;
 	}
 	
-	std::cout << "Type = pseudo : " << pseudos[n] << std::endl;
+	//std::cout << "Type = pseudo : " << pseudos[n] << std::endl;
 
 	std::cout << "char : impossible" << std::endl;
 	std::cout << "int : impossible" << std::endl;
@@ -113,7 +113,7 @@ Type	identifyType(const std::string input, unsigned int *dotCount) {
 			(*dotCount)++;
 		i++;
 	}
-	std::cout << "Dotcount : " << *dotCount << std::endl;
+	//std::cout << "Dotcount : " << *dotCount << std::endl;
 	
 	// numbers: float, int & double
 	if ((input.find('f') == input.length() - 1) && *dotCount <= 1) {
@@ -136,7 +136,7 @@ void	ScalarConverter::convert(const std::string input) {
 	unsigned int	dotCount = 0;
 
 	// print input (for debugging)
-	std::cout << "input: " << input << std::endl;
+	//std::cout << "input: " << input << std::endl;
 
 	//check if input is printable
 	for (int i(0); input[i] != '\0'; i++) {
@@ -153,7 +153,7 @@ void	ScalarConverter::convert(const std::string input) {
 	// identify type (& print for debugging)
 	std::string typeNames[] = {"error", "int", "char", "float", "double"};
 	int this_type = identifyType(input, &dotCount);
-	std::cout << "type : " << typeNames[this_type] << std::endl;
+	//std::cout << "type : " << typeNames[this_type] << std::endl;
 	
 	//the different values 
 	char c(0);
