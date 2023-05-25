@@ -6,18 +6,18 @@
 #    By: ageels <ageels@student.codam.nl>             +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/05/15 14:13:01 by ageels        #+#    #+#                  #
-#    Updated: 2023/05/25 14:55:20 by ageels        ########   odam.nl          #
+#    Updated: 2023/05/25 16:34:49 by ageels        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = Conversion_of_scalar_types
+NAME = Serialization
 
 FLAGS = -I. -Wall -Werror -Wextra -std=c++98
 
 HDR = 
 
 SRC = main.cpp \
-	ScalarConverter.cpp\
+	Serialization.cpp \
 
 OBJ_DIR = obj
 

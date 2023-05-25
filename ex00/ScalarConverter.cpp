@@ -6,7 +6,7 @@
 /*   By: ageels <ageels@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/22 14:23:30 by ageels        #+#    #+#                 */
-/*   Updated: 2023/05/25 14:59:43 by ageels        ########   odam.nl         */
+/*   Updated: 2023/05/25 16:20:50 by ageels        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ bool	pseudoLiterals(const std::string input) {
 			f = static_cast<const float>(d);
 			break ;
 	}
-	
+
 	std::cout << "char : impossible" << std::endl;
 	std::cout << "int : impossible" << std::endl;
 	std::cout << "float : " << f << 'f' << std::endl;
