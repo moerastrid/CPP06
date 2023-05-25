@@ -6,18 +6,24 @@
 #    By: ageels <ageels@student.codam.nl>             +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/05/15 14:13:01 by ageels        #+#    #+#                  #
-#    Updated: 2023/05/25 16:45:45 by ageels        ########   odam.nl          #
+#    Updated: 2023/05/25 17:29:02 by ageels        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = Conversion_of_scalar_types
+NAME = Identify_real_type
 
 FLAGS = -I. -Wall -Werror -Wextra -std=c++98
 
-HDR = ScalarConverter.hpp
+HDR = Base.hpp \
+	A.hpp \
+	B.hpp \
+	C.hpp \
 
 SRC = main.cpp \
-	ScalarConverter.cpp\
+	Base.cpp \
+	A.cpp \
+	B.cpp \
+	C.cpp \
 
 OBJ_DIR = obj
 
