@@ -6,7 +6,7 @@
 /*   By: ageels <ageels@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/22 14:23:30 by ageels        #+#    #+#                 */
-/*   Updated: 2023/05/25 14:42:17 by ageels        ########   odam.nl         */
+/*   Updated: 2023/05/25 14:50:08 by ageels        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ ScalarConverter::ScalarConverter(const ScalarConverter &src) {
 // pseudo literals
 bool	pseudoLiterals(const std::string input) {
 	std::string		pseudos[] = {"-inff", "+inff", "inff", "nanf", "-inf", "+inf", "inf", "nan"};
-	int	n = -1;
+	int	n(-1);
 
 	double d(0.0);
 	float f(0.0f);
@@ -49,42 +49,47 @@ bool	pseudoLiterals(const std::string input) {
 		if (input.compare(pseudos[i]) == 0)
 			n = i;
 	}
-	
 	//std::cout << "Type = pseudo : " << pseudos[n] << std::endl;
 
-	std::cout << "char : impossible" << std::endl;
-	std::cout << "int : impossible" << std::endl;
 	switch (n) {
 		case -1 : 
 			return false;
+
 		case 0 :
 			f = -std::numeric_limits<float>::infinity();
 			d = static_cast<const double>(f);
 			break ;
+
 		case 1 :
 		case 2 :
 			f = std::numeric_limits<float>::infinity();
 			d = static_cast<const double>(f);
 			break ;
+
 		case 3 :
 			f = std::numeric_limits<float>::signaling_NaN();
 			d = static_cast<const double>(f);
 			break ;
+
 		case 4 :
 			d = -std::numeric_limits<double>::infinity();
 			f = static_cast<const float>(d);
 			break ;
+
 		case 5 :
 		case 6 :
 			d = std::numeric_limits<double>::infinity();
 			f = static_cast<const float>(d);
 			break ;
+
 		case 7 :
 			d = std::numeric_limits<double>::signaling_NaN();
 			f = static_cast<const float>(d);
 			break ;
 	}
-
+	
+	std::cout << "char : impossible" << std::endl;
+	std::cout << "int : impossible" << std::endl;
 	std::cout << "float : " << f << 'f' << std::endl;
 	std::cout << "double : " << d << std::endl;
 	return true;
@@ -197,7 +202,7 @@ void	ScalarConverter::convert(const std::string input) {
 	}
 	
 	// display the values
-	if (std::isprint(c)) {
+	if (std::isprint(c) && i >= 33 && i <= 126) {
 		std::cout << "char : " << c << std::endl;
 	} else {
 		std::cout << "char : invalid" << std::endl;
