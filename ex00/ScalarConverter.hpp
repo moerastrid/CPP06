@@ -6,7 +6,7 @@
 /*   By: ageels <ageels@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/15 14:37:14 by ageels        #+#    #+#                 */
-/*   Updated: 2023/05/24 18:16:09 by astrid        ########   odam.nl         */
+/*   Updated: 2023/05/25 12:35:32 by ageels        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,7 @@ class 	ScalarConverter {
 		
 		static void	convert(const std::string input);
 };
+
+void	errorMessage(std::string str);
 
 #endif

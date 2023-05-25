@@ -6,7 +6,7 @@
 /*   By: ageels <ageels@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/22 14:23:30 by ageels        #+#    #+#                 */
-/*   Updated: 2023/05/24 21:27:08 by astrid        ########   odam.nl         */
+/*   Updated: 2023/05/25 12:51:25 by ageels        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,55 +37,74 @@ ScalarConverter::ScalarConverter(const ScalarConverter &src) {
 	*this = src;
 }
 
-// counting the dots (.)
-unsigned int	countDot(const std::string input) {
-	unsigned int	dotCount = 0;
-	
-	for (int i(0); input[i]; i++) {
-		if (input[i] == '.') {
-			dotCount++;
-		}
-	}
-	return (dotCount);
-}
-
 // type identification
-Type	identifyType(const std::string input) {
+Type	identifyType(const std::string input, unsigned int *dotCount) {
 	const char	*temp = input.c_str();
-	std::cout << "Dotcount : " << countDot(input) << std::endl;
+
+	// char
 	if (std::isalpha(input[0]) == true && input.length() == 1)
 		return typeChar;
-	else if ((input.find('f') == input.length() - 1) && countDot(input) <= 1) {
+
+	// error & count dots
+	unsigned int i(0);
+	while (input[i]) {
+		if (input[i] == '+' || input[i] == '-')
+			i++;
+		else
+			break ;
+	}
+	while (input [i]) {
+		if (isdigit(input[i]) == false && input[i] != 'f' && input[i] != '.')
+			return typeError;
+		else if (input[i] == '.') 
+			(*dotCount)++;
+		i++;
+	}
+	std::cout << "Dotcount : " << *dotCount << std::endl;
+	
+	// numbers: float, int & double
+	if ((input.find('f') == input.length() - 1) && *dotCount <= 1) {
 		if (input.compare("0f") == 0 || input.compare("0.0f") == 0 || std::atof(temp) != 0.0f)
 			return typeFloat;
 	}
-	else if (countDot(input) == 0) {
-		if (input.compare("0") == 0 || std::atoi(temp) != 0)
+	else if (*dotCount == 0) {
+		if ((input.find('f') == std::string::npos) && (input.compare("0") == 0 || std::atoi(temp) != 0))
 			return typeInt;
 	}
-	else if (countDot(input) == 1) {
+	else if (*dotCount == 1) {
 		if (input.compare("0.0") == 0 || std::atof(temp) != 0)
 			return typeDouble;
 	}
 	return typeError;
 }
 
+// convert
 void	ScalarConverter::convert(const std::string input) {
-	std::cout << input << std::endl;
+	unsigned int	dotCount = 0;
 
+	// print input (for debugging)
+	std::cout << "input: " << input << std::endl;
+
+	//check if input is printable
 	for (int i(0); input[i] != '\0'; i++) {
 		if (std::isprint(input[i]) == false) {
-			std::cerr << "invalid input, non-displayable characters should not be used as input" << std::endl;
+			errorMessage("invalid input, please only use displayable characters as input");
 			return ;
 		}
 	}
 	
-	int this_type = identifyType(input);
-	std::cout << "type : " << this_type << std::endl;
-	char c = 0;
-	int i = 0;
-	double d = 0.0;
-	float f = 0.0f;
+	// identify type (& print for debugging)
+	std::string typeNames[] = {"error", "int", "char", "float", "double"};
+	int this_type = identifyType(input, &dotCount);
+	std::cout << "type : " << typeNames[this_type] << std::endl;
+	
+	//the different values 
+	char c(0);
+	int i(0);
+	double d(0.0);
+	float f(0.0f);
+
+	//set the type it is, explicitely cast to the other values
 	switch (this_type)
 	{
 		case typeChar:
@@ -117,18 +136,29 @@ void	ScalarConverter::convert(const std::string input) {
 			break ;
 			
 		case typeError:
-			std::cout << "No scalar type :(" << std::endl;
+			errorMessage("invalid input, please only use scalar types as input");
 			return ;
 	}
 	
+	// display the values
 	if (std::isprint(c)) {
 		std::cout << "char : " << c << std::endl;
 	} else {
 		std::cout << "char : invalid" << std::endl;
 	}
 	std::cout << "int : " << i << std::endl;
-	std::cout << "float : " << (float)f << 'f' << std::endl;
-	std::cout << "double : " << (double)d << std::endl;
+	
+	if (dotCount == 1) {
+		std::cout << "float : " << (float)f << 'f' << std::endl;
+		std::cout << "double : " << (double)d << std::endl;
+	} else if (dotCount == 0) {
+		std::cout << "float : " << (float)f << ".0f" << std::endl;
+		std::cout << "double : " << (double)d << ".0" << std::endl;
+	}
 
 	return ;
+}
+
+void	errorMessage(std::string	str) {
+	std::cerr << "\033[1;31m" << "Error - " << str << "\033[0m" << std::endl;
 }
